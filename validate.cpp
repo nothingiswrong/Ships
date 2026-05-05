@@ -115,8 +115,10 @@ vector<FieldError> validate_field(vector<vector<char>>& field) {
     }
 
     for (Ship& ship : ships) {
-        if (problemShipIds.count(ship.id))
-            continue;
+        if (problemShipIds.count(ship.id)) {
+             continue;
+        }
+
         if (ship.coords.size() > 4) {
             errors.push_back(FieldError{TOO_LONG_SHIP, ship.coords});
         } else {

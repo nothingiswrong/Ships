@@ -17,8 +17,11 @@ bool AppController::loadField(const QString& path) {
     QString cleanPath = QUrl(path).toLocalFile();
 
     QFile file(cleanPath);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        resetState();
         return false;
+    }
+
 
     QList<QList<char>> field;
     QTextStream in(&file);
