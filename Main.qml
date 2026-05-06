@@ -21,7 +21,6 @@ ApplicationWindow {
         }
     }
 
-
     Item {
         id: startScreen
         anchors.fill: parent
@@ -32,7 +31,6 @@ ApplicationWindow {
             onClicked: fileDialog.open()
         }
     }
-
 
     Item {
         id: fieldScreen
@@ -53,10 +51,56 @@ ApplicationWindow {
         Row {
             anchors.centerIn: parent
             spacing: 24
+            Column {
+                spacing: 0
+                Row {
+                    x: 53
+                    spacing: 0
+                    Repeater {
 
-            BattleField {
-                id: battleField
-                model: controller.fieldModel
+                        model: controller.coordLetters
+                        width: 53 * 10
+                            height: 53
+                        delegate: Rectangle {
+                            width: 53
+                            height: 53
+                            color: "transparent"
+                            Text {
+                                anchors.centerIn: parent
+                                text: modelData
+                                font.pixelSize: 16
+                                color: "#333"
+                            }
+                        }
+                    }
+                }
+
+                Row {
+                    spacing: 0
+                    Column {
+                        Repeater {
+                            model: controller.coordNumbers
+                            width: 53
+                                height: 53 * 10
+                            delegate: Rectangle {
+                                width: 53
+                                height: 53
+                                color: "transparent"
+                                Text {
+                                    anchors.centerIn: parent
+                                    text: modelData
+                                    font.pixelSize: 16
+                                    color: "#333"
+                                }
+                            }
+                        }
+                    }
+
+                    BattleField {
+                        id: battleField
+                        model: controller.fieldModel
+                    }
+                }
             }
 
             Rectangle {
@@ -114,8 +158,11 @@ ApplicationWindow {
     Item {
         visible: false
         id: inputErrorScreen
+        anchors.fill: parent
+
         Text {
             id: inputErrorText
+            anchors.centerIn: parent
             text: "Неправильный формат ввода"
             color: "red"
             font.pixelSize: 25
@@ -124,9 +171,9 @@ ApplicationWindow {
         }
         Button {
             text: "Назад"
-            anchors.top: inputErrorText.top
-            anchors.left: parent.left
-            anchors.margins: 50
+            anchors.top: inputErrorText.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 20
             onClicked: {
                 inputErrorScreen.visible = false
                 startScreen.visible = true

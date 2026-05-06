@@ -11,6 +11,8 @@ class AppController : public QObject {
     Q_PROPERTY(bool isValid  READ isValid  NOTIFY isValidChanged)
     Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY isLoadedChanged)
     Q_PROPERTY(QStringList errorMessages READ errorMessages NOTIFY errorMessagesChanged)
+    Q_PROPERTY(QStringList coordNumbers READ coordNumbers CONSTANT)
+    Q_PROPERTY(QStringList coordLetters READ coordLetters CONSTANT)
 
 public:
     explicit AppController(QObject *parent = nullptr);
@@ -20,6 +22,8 @@ public:
     bool isLoaded();
     QStringList errorMessages();
     void resetState();
+    QStringList coordNumbers();
+    QStringList coordLetters();
 
 signals:
     void isValidChanged();

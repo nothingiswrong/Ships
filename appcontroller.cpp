@@ -12,6 +12,8 @@ BattleFieldModel* AppController::fieldModel() { return model_; }
 bool AppController::isValid()  { return isValid_; }
 bool AppController::isLoaded() { return isLoaded_; }
 QStringList AppController::errorMessages() { return errorMessages_; }
+QStringList AppController::coordNumbers() {return  {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}; }
+QStringList AppController::coordLetters() {return  {"А", "Б", "В", "Г", "Д", "Е", "Ж", "З", "И", "К"}; }
 
 bool AppController::loadField(const QString& path) {
     QString cleanPath = QUrl(path).toLocalFile();
