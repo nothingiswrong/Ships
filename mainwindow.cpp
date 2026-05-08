@@ -34,7 +34,12 @@ void MainWindow::on_loadButton_clicked()
             errorCoords[y][x] = true;
         }
     }
+    initScreen(errors, field, errorCoords);
 
+    ui ->stackedWidget->setCurrentIndex(1);
+}
+
+void MainWindow::initScreen(vector<FieldError>& errors, QList<QList<char>>& field, vector<vector<bool>>& errorCoords) {
     initTable();
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
@@ -64,18 +69,15 @@ void MainWindow::on_loadButton_clicked()
 
     }
 
-
     auto label = ui->resultLabel;
     if (errors.empty()) {
         label->setStyleSheet("color: green;");
         label->setText("Ошибок не найдено");
-         ui->errorList->setVisible(false);
+        ui->errorList->setVisible(false);
     } else {
         label->setStyleSheet("color: red;");
         label->setText("Найдены ошибки");
     }
-
-    ui ->stackedWidget->setCurrentIndex(1);
 }
 
 QString MainWindow::field_error_message(FieldError error) {

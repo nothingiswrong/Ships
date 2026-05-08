@@ -31,6 +31,7 @@ private:
      std::vector<std::vector<char>> toVector(const QList<QList<char>>& field);
     void initTable();
      QString field_error_message(FieldError error);
+    void initScreen(vector<FieldError>& errors, QList<QList<char>>& field, vector<vector<bool>>& errorCoords);
 
 private:
     Ui::MainWindow *ui;
