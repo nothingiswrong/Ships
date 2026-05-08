@@ -1,6 +1,6 @@
 #include "appcontroller.h"
 #include <vector>
-#include <validate.h>
+#include "validate.h"
 
 AppController::AppController(QObject *parent)
     : QObject(parent)

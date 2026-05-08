@@ -29,20 +29,6 @@ bool Coord::operator==(const Coord& other) const {
     return x == other.x && y == other.y;
 }
 
-QString field_error_message(FieldError error) {
-    switch (error.kind) {
-    case TOO_LONG_SHIP:
-        return "Найдены корабли длиннее 4 клеток";
-    case NOT_ENOUGH_SHIPS:
-        return QString("Не хватает %1 корректных кораблей длиной %2").arg(error.n).arg(error.len);
-    case TOO_MANY_SHIPS:
-        return QString("Слишком много кораблей длиной %1: %2").arg(error.len).arg(error.n);
-    case SHIPS_CONNECTED:
-        return "Найдена некорректная структура кораблей";
-    }
-
-    return "Неизвестная ошибка";
-}
 
 vector<Coord> get_near_coords(Coord coord, int m, int n) {
     vector<Coord> coords;

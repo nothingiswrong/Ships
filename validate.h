@@ -1,5 +1,6 @@
 #include <QString>
 #include <vector>
+#pragma once
 using std::vector;
 
 enum ErrorKind {
@@ -26,5 +27,4 @@ struct FieldError {
     int n = 0;
 };
 
-QString field_error_message(FieldError error);
 vector<FieldError> validate_field(vector<vector<char>>& field);

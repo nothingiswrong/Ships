@@ -1,30 +1,12 @@
 #include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
-#include "battlefieldmodel.h"
-#include <appcontroller.h>
-
+#include <qapplication.h>
+#include "mainwindow.h"
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
-    QQmlApplicationEngine engine;
+    MainWindow window;
+    window.show();
 
-
-    AppController controller;
-    engine.rootContext()->setContextProperty("controller", &controller);
-
-    QObject::connect(
-        &engine,
-        &QQmlApplicationEngine::objectCreationFailed,
-        &app,
-        []() { QCoreApplication::exit(-1); },
-        Qt::QueuedConnection);
-
-    engine.loadFromModule("Ships2", "Main");
-
-    BattleFieldModel model;
-
-
-    return QCoreApplication::exec();
+    return app.exec();
 }
