@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+#include <QHeaderView>
+#include <QStringList>
 #include "validate.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -100,11 +102,36 @@ void MainWindow::initTable() {
     ui->fieldTable->clear();
     ui->fieldTable->setRowCount(fieldSize);
     ui->fieldTable->setColumnCount(fieldSize);
-    ui->fieldTable->horizontalHeader()->hide();
-    ui->fieldTable->verticalHeader()->hide();
-    ui->fieldTable->horizontalHeader()->setDefaultSectionSize(44);
-    ui->fieldTable->verticalHeader()->setDefaultSectionSize(44);
-    ui->fieldTable->setFixedSize(442, 442);
+
+    QStringList topLabels;
+    QStringList leftLabels;
+    for (int i = 0; i < fieldSize; i++) {
+        topLabels.append(QString(QChar(QLatin1Char('A' + i))));
+    }
+
+    for (int i = 0; i < fieldSize; i++) {
+        leftLabels.append(QString::number(i + 1));
+    }
+
+    ui->fieldTable->setHorizontalHeaderLabels(topLabels);
+    ui->fieldTable->setVerticalHeaderLabels(leftLabels);
+
+    QHeaderView *hh = ui->fieldTable->horizontalHeader();
+    QHeaderView *vh = ui->fieldTable->verticalHeader();
+    hh->setVisible(true);
+    vh->setVisible(true);
+    hh->setSectionResizeMode(QHeaderView::Fixed);
+    vh->setSectionResizeMode(QHeaderView::Fixed);
+    hh->setDefaultSectionSize(44);
+    vh->setDefaultSectionSize(44);
+    hh->setDefaultAlignment(Qt::AlignCenter);
+    vh->setDefaultAlignment(Qt::AlignCenter);
+    vh->setFixedWidth(36);
+    hh->setFixedHeight(28);
+    ui->fieldTable->setCornerButtonEnabled(false);
+
+    int cell = 44;
+    ui->fieldTable->setFixedSize(vh->width() + fieldSize * cell + 2, hh->height() + fieldSize * cell + 2);
 
     ui->errorList->clear();
     ui->errorList->setVisible(true);
