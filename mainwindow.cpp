@@ -28,7 +28,7 @@ void MainWindow::on_loadButton_clicked()
 
     auto vec = toVector(field);
     auto errors = validate_field(vec);
-    vector<vector<bool>> errorCoords(10, vector<bool>(10, false));
+    vector<vector<bool>> errorCoords(fieldSize, vector<bool>(fieldSize, false));
     for (FieldError err : errors) {
         for (auto [x, y]: err.coords ) {
             errorCoords[y][x] = true;
@@ -36,13 +36,13 @@ void MainWindow::on_loadButton_clicked()
     }
     initScreen(errors, field, errorCoords);
 
-    ui ->stackedWidget->setCurrentIndex(1);
+    toFieldScreen();
 }
 
 void MainWindow::initScreen(vector<FieldError>& errors, QList<QList<char>>& field, vector<vector<bool>>& errorCoords) {
     initTable();
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < fieldSize; i++) {
+        for (int j = 0; j < fieldSize; j++) {
             QColor color;
             if (errorCoords[i][j]) {
                 color = Qt::red;
@@ -98,8 +98,8 @@ QString MainWindow::field_error_message(FieldError error) {
 
 void MainWindow::initTable() {
     ui->fieldTable->clear();
-    ui->fieldTable->setRowCount(10);
-    ui->fieldTable->setColumnCount(10);
+    ui->fieldTable->setRowCount(fieldSize);
+    ui->fieldTable->setColumnCount(fieldSize);
     ui->fieldTable->horizontalHeader()->hide();
     ui->fieldTable->verticalHeader()->hide();
     ui->fieldTable->horizontalHeader()->setDefaultSectionSize(44);
@@ -109,8 +109,8 @@ void MainWindow::initTable() {
     ui->errorList->clear();
     ui->errorList->setVisible(true);
 
-    for (int row = 0; row < 10; row++) {
-        for (int col = 0; col < 10; col++) {
+    for (int row = 0; row < fieldSize; row++) {
+        for (int col = 0; col < fieldSize; col++) {
             auto item = new QTableWidgetItem();
             item->setBackground(Qt::lightGray);
             item->setFlags(Qt::ItemIsEnabled);
@@ -153,6 +153,14 @@ void MainWindow::toErrorScreen() {
     ui->stackedWidget->setCurrentIndex(2);
 }
 
+void MainWindow::toFieldScreen() {
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void MainWindow::toStartScreen() {
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
 std::vector<std::vector<char>> MainWindow::toVector(const QList<QList<char>>& field) {
     std::vector<std::vector<char>> result;
     for (auto& row : field)
@@ -162,12 +170,12 @@ std::vector<std::vector<char>> MainWindow::toVector(const QList<QList<char>>& fi
 
 void MainWindow::on_backButton_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    toStartScreen();
 }
 
 
 void MainWindow::on_backButton2_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    toStartScreen();
 }
 

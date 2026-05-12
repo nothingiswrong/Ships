@@ -1,6 +1,5 @@
-#include <QString>
-#include <vector>
 #pragma once
+#include <vector>
 using std::vector;
 
 enum ErrorKind {

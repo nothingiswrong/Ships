@@ -1,6 +1,5 @@
 #include "validate.h"
 #include <algorithm>
-#include <qdebug.h>
 #include <unordered_set>
 
 using std::find;
@@ -12,18 +11,6 @@ struct Ship {
     int id;
 };
 
-bool checkCrossing(vector<vector<char>>& field, int x, int y) {
-    int n = field.size();
-    int m = field[0].size();
-    int c = 0;
-
-    if (x > 0 && field[y][x - 1] == '*') c++;
-    if (x + 1 < m && field[y][x + 1] == '*') c++;
-    if (y > 0 && field[y - 1][x] == '*')c++;
-    if (y + 1 < n && field[y + 1][x] == '*') c++;
-
-    return c <= 1;
-}
 
 bool Coord::operator==(const Coord& other) const {
     return x == other.x && y == other.y;
@@ -35,8 +22,9 @@ vector<Coord> get_near_coords(Coord coord, int m, int n) {
     int dx[] = {0, 0, -1, 1, 1, -1, -1, 1};
     int dy[] = {-1, 1, 0, 0, 1, -1, 1, -1};
     for (int i = 0; i < 8; i++) {
-        if (coord.x + dx[i] < m && coord.x + dx[i] >= 0 && coord.y + dy[i] < n && coord.y + dy[i] >= 0)
+        if (coord.x + dx[i] < m && coord.x + dx[i] >= 0 && coord.y + dy[i] < n && coord.y + dy[i] >= 0) {
             coords.push_back(Coord{coord.x + dx[i], coord.y + dy[i]});
+        }
     }
     return coords;
 }
